@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Test",
+  "description": "auto replay youtube",
+  "version": "1",
+  "author": "xxxx",
+  "browser_action": {
+    "default_title": "Have a good day",
+    "default_popup": "popup.html"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "activeTab",
+    "http://*/*",
+    "https://*/*"
+  ]
+}
