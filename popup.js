@@ -1,14 +1,19 @@
-let changeColor = document.getElementById('changeColor');
+'use strict';
 
-  chrome.storage.sync.get('color', function(data) {
-    changeColor.style.backgroundColor = data.color;
-    changeColor.setAttribute('value', data.color);
+function check() {
+  chrome.storage.sync.set({'checked': true}, function() {
+    message('Settings saved');
+    browser.browserAction.enable();
   });
-  changeColor.onclick = function(element) {
-    let color = element.target.value;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
-          tabs[0].id,
-          {code: 'document.body.style.backgroundColor = "' + color + '";'});
-    });
-  };
+  chrome.browserAction.setBadgeText({text: 'ON'});
+}
+
+function unCheck() {
+  chrome.storage.sync.set({'checked': false}, function() {
+    browser.browserAction.disable();
+  });
+  chrome.browserAction.setBadgeText({text: 'OFF'});
+}
+
+document.getElementById('myChkBtn').addEventListener('click', check)
+document.getElementById('myUnchkBtn').addEventListener('click', unCheck)
